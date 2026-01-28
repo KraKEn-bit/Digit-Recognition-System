@@ -60,5 +60,3 @@ The model displays handwritten digit images and prints the predicted number for 
 
 ---
 
-
-=
