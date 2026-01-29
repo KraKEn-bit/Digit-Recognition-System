@@ -18,7 +18,7 @@ The MNIST dataset contains 28×28 grayscale images of handwritten digits (0–9)
 
 ---
 
-##  Model Architecture
+## 🧠 Model Architecture
 
 ### TensorFlow Neural Network (Training)
 
@@ -65,7 +65,7 @@ The forward pass (inference) is calculated manually using NumPy, providing trans
 ---
 
 
-## 🧠 Limitations & Challenges
+##  Limitations & Challenges
 
 While this project demonstrates real-time digit recognition, there are several limitations to note:
 
