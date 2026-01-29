@@ -96,5 +96,5 @@ To run this project locally or in Google Colab:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/KraKEn-bit/Digit-Recognition-System
+   git clone https://github.com/KraKEn-bit/Digit-Recognition-System.git
    cd Digit-Recognition-System
