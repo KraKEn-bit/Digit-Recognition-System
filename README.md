@@ -1,62 +1,61 @@
-# Digit-Recognition-System
+# Real-Time MNIST Handwritten Digit Recognition
 
-
-# MNIST Handwritten Digit Recognition using TensorFlow
-
-This project implements a **handwritten digit recognition system** using the **MNIST dataset** and **TensorFlow**. The model learns to classify handwritten digits (0–9) from grayscale 28×28 pixel images using a neural network.
+A real-time handwritten digit recognition system using the **MNIST dataset**. This project demonstrates both a **TensorFlow-trained neural network** and a **custom NumPy-based MLP for manual inference**, complete with an interactive drawing interface running inside **Google Colab**.
 
 ---
 
 ## 🚀 Project Overview
 
-The goal of this project is to build a machine learning model that can accurately recognize handwritten digits. The MNIST dataset is used for training and testing, containing thousands of labeled digit images.
+This project allows users to **draw digits on a web-based canvas**, which are then processed and predicted in real-time by a neural network. The system demonstrates:
 
-The system processes input images, feeds them into a neural network, and predicts the digit class.
+1. **Training & testing a neural network** on MNIST using TensorFlow.  
+2. **Manual forward propagation** using NumPy for inference, showing the math behind predictions.  
+3. **Interactive real-time predictions** via an HTML5 canvas inside Colab.
+
+The MNIST dataset contains 28×28 grayscale images of handwritten digits (0–9).
 
 ---
 
-## 🧠 Model Architecture
+## 🧠 Model Architectures
 
-- Input Layer: 784 features (28×28 flattened image)  
-- Hidden Layer 1: 128 neurons (Sigmoid activation)  
-- Hidden Layer 2: 256 neurons (Sigmoid activation)  
-- Output Layer: 10 neurons (Digit classes 0–9)
+### TensorFlow Neural Network (Training)
 
-The model is trained using **backpropagation** and **gradient descent**.
+| Layer           | Units | Activation |
+|-----------------|-------|------------|
+| Input Layer     | 784   | -          |
+| Hidden Layer 1  | 128   | Sigmoid    |
+| Hidden Layer 2  | 256   | Sigmoid    |
+| Output Layer    | 10    | Softmax    |
+
+### NumPy Manual Inference (Real-Time Prediction)
+
+| Layer           | Units | Activation |
+|-----------------|-------|------------|
+| Input Layer     | 784   | -          |
+| Hidden Layer 1  | 128   | ReLU       |
+| Hidden Layer 2  | 256   | ReLU       |
+| Output Layer    | 10    | Softmax    |
 
 ---
 
 ## 📊 Features
 
-- Loads and preprocesses the MNIST dataset  
-- Implements a **custom TensorFlow neural network**  
-- Trains the model on labeled handwritten digits  
-- Evaluates accuracy on test data  
-- Predicts and visualizes digit outputs  
-- Displays sample predictions alongside actual images  
+- **TensorFlow Model:** Train and evaluate a neural network on MNIST.  
+- **Manual Inference:** Implements forward propagation using NumPy arrays (dot products, ReLU, Softmax).  
+- **Interactive Drawing:** Draw digits directly in the notebook with a mouse.  
+- **Real-Time Predictions:** Uses `google.colab.output` callbacks to send Base64 image data from JS to Python.  
+- **Robot Vision Mode:** Visualizes the resized 28×28 input as seen by the model.  
+- **Prediction Display:** Shows predicted digit alongside actual drawn input.  
 
 ---
 
 ## 📈 Results
 
-- High classification accuracy on MNIST test data  
-- Successfully predicts handwritten digits  
-- Visual output verifies prediction correctness  
+- High classification accuracy on MNIST test data.  
+- Successfully predicts handwritten digits drawn on the canvas.  
+- Visual feedback helps debug and understand the model's perception.  
 
 ---
 
-## 🛠 Tech Stack
 
-- Python  
-- TensorFlow  
-- NumPy  
-- Matplotlib  
-
----
-
-## 📌 Example Output
-
-The model displays handwritten digit images and prints the predicted number for each image. :") 
-
----
 
