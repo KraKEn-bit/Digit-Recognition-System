@@ -6,7 +6,7 @@ This project demonstrates both the full ML workflow (training, testing, evaluati
 
 ---
 
-## 🚀 Project Overview
+##  Project Overview
 
 This system allows you to **draw digits on a canvas** and receive instant predictions. It also serves as a deep-dive into the mechanics of neural networks by demonstrating:
 
@@ -18,7 +18,7 @@ The MNIST dataset contains 28×28 grayscale images of handwritten digits (0–9)
 
 ---
 
-## 🧠 Model Architecture
+##  Model Architecture
 
 ### TensorFlow Neural Network (Training)
 
@@ -44,7 +44,7 @@ The forward pass (inference) is calculated manually using NumPy, providing trans
 
 ---
 
-## 📊 Features
+##  Features
 
 - **Loads and preprocesses the MNIST dataset**  
 - **TensorFlow Model:** Train and evaluate a neural network on MNIST  
@@ -65,6 +65,26 @@ The forward pass (inference) is calculated manually using NumPy, providing trans
 ---
 
 
+## 🧠 Limitations & Challenges
+
+While this project demonstrates real-time digit recognition, there are several limitations to note:
+
+### 1. MLP (Multi-Layer Perceptron) Limitations
+- **Spatial Blindness:** Flattening 28×28 images into a 1D vector (784 pixels) destroys the spatial structure of the digit.  
+- **Translation Sensitivity:** Digits drawn off-center or in different positions are often misclassified.  
+- **Scale Sensitivity:** Small, thin, or unusually shaped digits may not be recognized correctly.  
+- **Random Digit Drawings:** If digits are drawn in unconventional styles or with irregular strokes, predictions become unreliable.  
+
+### 2. CNN (Convolutional Neural Network) Considerations (Future Improvement)
+
+### 3. Other Challenges
+- **Manual NumPy Inference:** While educational, manually implemented forward propagation lacks optimizations like batching, which can slow down predictions.  
+- **Interactive Canvas Sensitivity:** Drawing too quickly, with inconsistent stroke thickness, or in tiny sections of the canvas can result in incorrect predictions.  
+- **Limited Dataset Variance:** The MNIST dataset contains mostly centered, standard-style digits. Hand-drawn digits that deviate from this style are harder to predict.  
+
+> ⚠️ Overall: The current MLP system works well for standard, centered digits but struggles with random, off-center, or unusually styled digits. Upgrading to a CNN would address most of these issues.
+
+
 
 
 
@@ -76,5 +96,5 @@ To run this project locally or in Google Colab:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/KraKEn-bit/Digit-Recognition-System
+   cd Digit-Recognition-System
