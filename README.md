@@ -77,10 +77,6 @@ While this project demonstrates real-time digit recognition, there are several l
 
 ### 2. CNN (Convolutional Neural Network) Considerations (Future Improvement)
 
-### 3. Other Challenges
-- **Manual NumPy Inference:** While educational, manually implemented forward propagation lacks optimizations like batching, which can slow down predictions.  
-- **Interactive Canvas Sensitivity:** Drawing too quickly, with inconsistent stroke thickness, or in tiny sections of the canvas can result in incorrect predictions.  
-- **Limited Dataset Variance:** The MNIST dataset contains mostly centered, standard-style digits. Hand-drawn digits that deviate from this style are harder to predict.  
 
 > ⚠️ Overall: The current MLP system works well for standard, centered digits but struggles with random, off-center, or unusually styled digits. Upgrading to a CNN would address most of these issues.
 
