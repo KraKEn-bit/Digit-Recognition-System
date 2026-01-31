@@ -5,25 +5,25 @@ Users draw digits on an ancient parchment canvas, and the system reveals the pre
 
 ---
 
-## 🔥 Overview
+##  Overview
 
 This project blends **deep learning** with a **highly stylized anime-inspired UI**, turning a classic MNIST digit recognizer into an interactive One Piece experience.
 
 ---
 
-## 🚀 Features
+##  Features:
 
 ### 🧠 CNN Brain
 - PyTorch-based **Convolutional Neural Network**
 - Trained on the **MNIST dataset**
 - Accurately predicts hand-drawn digits
 
-### ✍️ Fire Fist Drawing
+###  Fire Fist Drawing
 - Interactive HTML5 canvas
 - Real-time **orange fire particle effects** trail your drawing
 - Smooth and responsive drawing experience
 
-### 🪧 Dynamic Wanted Poster
+###  Dynamic Wanted Poster
 - Prediction appears as a **Marine Wanted Poster**
 - Accompanied by a dramatic **“Don!”** impact sound
 
@@ -39,7 +39,7 @@ This project blends **deep learning** with a **highly stylized anime-inspired UI
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - HTML5 Canvas  
@@ -58,9 +58,9 @@ This project blends **deep learning** with a **highly stylized anime-inspired UI
 
 ---
 
-## 📥 Installation & Setup
+##  Installation & Setup
 
-### 1️⃣ Clone the Repository
+###  Clone the Repository
 ```bash
 git clone https://github.com/your-username/poneglyph-recognizer.git
 cd poneglyph-recognizer
