@@ -1,4 +1,4 @@
-# Real-Time MNIST Digit Recognition 🖌️
+# Real-Time MNIST Digit Recognition 
 
 An **interactive web-based digit recognition system** built with **PyTorch CNN**. Draw digits (0–9) on the canvas and get **real-time predictions**.  
 
@@ -60,7 +60,7 @@ The MNIST dataset contains **28×28 grayscale images** of handwritten digits (0�
 
 ---
 
-## 🎨 Features
+##  Features:
 
 - **Interactive Canvas:** Draw digits directly in the browser  
 - **Real-Time Prediction:** Predict digits instantly  
@@ -78,7 +78,7 @@ The MNIST dataset contains **28×28 grayscale images** of handwritten digits (0�
 
 ---
 
-## ⚡ Demo
+## Demo:
 
 Open your browser at `http://127.0.0.1:5000/` after running:
 
