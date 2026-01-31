@@ -1,37 +1,27 @@
-# Real-Time MNIST Handwritten Digit Recognition
+# Real-Time MNIST Digit Recognition 🖌️
 
-An end-to-end digit recognition system featuring a **TensorFlow-trained backend** and a **custom NumPy-based inference engine**. This project includes a live drawing interface that bridges web technologies (HTML5/JS) with Python to perform real-time predictions inside **Google Colab**.
+An **interactive web-based digit recognition system** built with **PyTorch CNN**. Draw digits (0–9) on the canvas and get **real-time predictions**.  
 
-This project demonstrates both the full ML workflow (training, testing, evaluation) and the inner workings of a neural network (manual forward propagation with NumPy).
-
----
-
-##  Project Overview
-
-This system allows you to **draw digits on a canvas** and receive instant predictions. It also serves as a deep-dive into the mechanics of neural networks by demonstrating:
-
-- **Training & Evaluation:** Building a model using TensorFlow/Keras on the MNIST dataset.  
-- **Manual Math:** Performing inference using only NumPy to execute matrix multiplications and activation functions manually.  
-- **Real-Time Bridge:** Using `google.colab.output` to facilitate communication between the browser's JavaScript and the Python kernel.
-
-The MNIST dataset contains 28×28 grayscale images of handwritten digits (0–9).
+This project is an upgrade from a previous **MLP + NumPy manual inference version** and now features a **Convolutional Neural Network (CNN)** for better accuracy, robustness, and interactive experience.
 
 ---
 
-## 🧠 Model Architecture
+## 🚀 Project Overview
 
-### TensorFlow Neural Network (Training)
+This system allows you to:
 
-| Layer           | Units | Activation |
-|-----------------|-------|------------|
-| Input Layer     | 784   | -          |
-| Hidden Layer 1  | 128   | Sigmoid    |
-| Hidden Layer 2  | 256   | Sigmoid    |
-| Output Layer    | 10    | Softmax    |
+- **Draw digits** on a canvas in your browser  
+- **Predict in real-time** using a CNN model trained on MNIST  
+- **Explore the difference** between MLP and CNN approaches  
+- **Learn neural network mechanics** (from MLP manual inference to CNN training)  
 
-The model is trained using **backpropagation** and **gradient descent**.
+The MNIST dataset contains **28×28 grayscale images** of handwritten digits (0–9).  
 
-### NumPy Manual Inference (Real-Time Prediction)
+---
+
+## 🧠 Model Architectures
+
+### 1️⃣ Previous MLP Version (NumPy + TensorFlow)
 
 | Layer           | Units | Activation |
 |-----------------|-------|------------|
@@ -40,57 +30,57 @@ The model is trained using **backpropagation** and **gradient descent**.
 | Hidden Layer 2  | 256   | ReLU       |
 | Output Layer    | 10    | Softmax    |
 
-The forward pass (inference) is calculated manually using NumPy, providing transparency into the neural network computations.
+**Limitations of MLP:**
+
+- Flattening images destroys spatial structure → less robust  
+- Sensitive to off-center, scaled, or oddly drawn digits  
+- Random drawings may not be recognized correctly  
+
+> ⚠️ Works well for standard, centered digits but struggles with real-world handwriting.
 
 ---
 
-##  Features
+### 2️⃣ Current CNN Version (PyTorch)
 
-- **Loads and preprocesses the MNIST dataset**  
-- **TensorFlow Model:** Train and evaluate a neural network on MNIST  
-- **Manual Inference:** Dot products, ReLU, and Softmax implemented in NumPy  
-- **Interactive UI:** Draw digits directly in the notebook using a mouse  
-- **Real-Time Predictions:** Predicts digits drawn on a web-based canvas  
-- **Robot Vision Mode:** Visualizes the 28×28 grayscale input as seen by the model  
-- **Prediction Display:** Shows predicted digit alongside actual drawn input  
+| Layer           | Output Shape        | Activation |
+|-----------------|------------------|------------|
+| Conv2D (1→32)   | 26×26×32          | ReLU       |
+| Conv2D (32→64)  | 24×24×64          | ReLU       |
+| MaxPool2D (2x2) | 12×12×64          | -          |
+| Flatten         | 9216               | -          |
+| Fully Connected | 128                | ReLU       |
+| Fully Connected | 10                 | -          |
+
+**Advantages of CNN:**
+
+- Preserves spatial structure → more robust recognition  
+- Better at recognizing off-center, scaled, or irregular digits  
+- Higher accuracy than MLP  
+- Integrates seamlessly with interactive canvas  
+
+---
+
+## 🎨 Features
+
+- **Interactive Canvas:** Draw digits directly in the browser  
+- **Real-Time Prediction:** Predict digits instantly  
+- **Web-Based UI:** Modern, responsive interface with animated footer  
+- **CNN Backend:** PyTorch-based convolutional neural network  
+- **Previous MLP Version:** Kept for comparison and learning purposes  
 
 ---
 
 ## 📈 Results
 
-- High classification accuracy on MNIST test data  
-- Successfully predicts handwritten digits drawn on the canvas  
-- Visual feedback helps debug and understand the model's perception  
+- **High accuracy** on MNIST test set  
+- **Correctly recognizes** digits drawn in various positions and styles  
+- **Interactive feedback** helps users understand how the model perceives their input  
 
 ---
 
+## ⚡ Demo
 
-##  Limitations & Challenges
+Open your browser at `http://127.0.0.1:5000/` after running:
 
-While this project demonstrates real-time digit recognition, there are several limitations to note:
-
-### 1. MLP (Multi-Layer Perceptron) Limitations
-- **Spatial Blindness:** Flattening 28×28 images into a 1D vector (784 pixels) destroys the spatial structure of the digit.  
-- **Translation Sensitivity:** Digits drawn off-center or in different positions are often misclassified.  
-- **Scale Sensitivity:** Small, thin, or unusually shaped digits may not be recognized correctly.  
-- **Random Digit Drawings:** If digits are drawn in unconventional styles or with irregular strokes, predictions become unreliable.  
-
-### 2. CNN (Convolutional Neural Network) Considerations (Future Improvement)
-
-
-> ⚠️ Overall: The current MLP system works well for standard, centered digits but struggles with random, off-center, or unusually styled digits. Upgrading to a CNN would address most of these issues.
-
-
-
-
-
----
-
-## ⚙️ Setup & Installation
-
-To run this project locally or in Google Colab:
-
-1. **Clone the Repository:**
-   ```bash
-   git clone [https://github.com/KraKEn-bit/Digit-Recognition-System.git](https://github.com/KraKEn-bit/Digit-Recognition-System.git)
-   cd Digit-Recognition-System
+```bash
+python app.py
