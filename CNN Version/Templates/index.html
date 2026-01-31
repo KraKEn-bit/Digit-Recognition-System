@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>One Piece Digit Recognizer 🏴‍☠️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold: #FFD700; --ocean: #000c18; --accent: #ff4500; --parchment: #fdf5e6; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif; background: var(--ocean); color: #fff;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh; margin: 0; overflow: hidden; position: relative;
+    }
+
+
+    .ace-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; pointer-events: none; }
+    .ace-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: drop-shadow(0 0 30px var(--accent)); }
+
+    .main-card {
+      background: rgba(10, 25, 47, 0.75); backdrop-filter: blur(10px);
+      border: 1px solid var(--gold); border-radius: 24px; padding: 30px;
+      text-align: center; z-index: 10; width: 340px; box-shadow: 0 20px 60px #000;
+    }
+
+    canvas { border: 4px solid #3d2b1f; border-radius: 12px; background: #d6c4a6; cursor: crosshair; }
+
+ 
+    #wanted-poster {
+      display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 320px; background: var(--parchment); border: 15px solid #d4a373; padding: 25px;
+      box-shadow: 0 0 0 2000px rgba(0,0,0,0.9); color: #3d2b1f; z-index: 999; text-align: center;
+      cursor: pointer;
+    }
+    #wanted-poster.active { display: block; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); } 100% { transform: translate(-50%, -50%) scale(1); } }
+    #prediction-text { font-family: 'Pirata One'; font-size: 8rem; color: #8b0000; margin: 10px 0; line-height: 1; }
+
+    .ocean { height: 15vh; width: 100%; position: fixed; bottom: 0; left: 0; background: #015871; z-index: 5; }
+    .wave {
+      background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x; 
+      position: absolute; top: -198px; width: 6400px; height: 198px; animation: wave 10s linear infinite;
+    }
+    @keyframes wave { 0% { margin-left: 0; } 100% { margin-left: -1600px; } }
+    
+    .footer { position: fixed; bottom: 20px; font-family: 'Pirata One'; color: var(--gold); z-index: 20; font-size: 1.1rem; }
+    #animated-text::after { content: '|'; animation: blink 0.7s infinite; }
+
+    .fire-particle { position: absolute; width: 10px; height: 10px; background: orange; border-radius: 50%; pointer-events: none; z-index: 1000; box-shadow: 0 0 10px red; }
+    .btn { padding: 10px 25px; font-family: 'Pirata One'; font-size: 1.4rem; border: none; cursor: pointer; border-radius: 8px; margin: 5px; }
+    .btn-predict { background: var(--gold); }
+    .btn-reset { background: var(--accent); color: #fff; }
+    
+    #mute-btn { position: fixed; top: 20px; left: 20px; z-index: 100; border-radius: 50%; width: 50px; height: 50px; background: rgba(0,0,0,0.5); color: gold; border: 1px solid gold; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  </style>
+</head>
+<body>
+
+  <div class="ace-bg"><img src="{{ url_for('static', filename='ACE.png') }}" class="ace-img"></div>
+  
+  <button id="mute-btn" onclick="toggleMusic()">🔈</button>
+  
+  <div class="main-card">
+    <h1 style="font-family:'Pirata One'; color:gold; margin:0; font-size: 3rem;">ONE PIECE</h1>
+    <p style="font-size: 0.65rem; opacity: 0.9; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; color: #fff;">
+      Deciphering the Ancient Poneglyph Numbers
+    </p>
+
+    <canvas id="canvas" width="280" height="280"></canvas>
+    <div class="btn-group" style="margin-top: 15px;">
+      <button class="btn btn-predict" onclick="predict()">PREDICT</button>
+      <button class="btn btn-reset" onclick="clearCanvas()">RESET</button>
+    </div>
+  </div>
+
+  <div id="wanted-poster" onclick="closePoster()">
+    <h2 style="font-family:'Pirata One'; font-size: 2.5rem; margin:0;">WANTED</h2>
+    <div id="prediction-text">?</div> 
+    <div style="font-family:'Pirata One'; font-size: 1.2rem;">฿ 500,000,000 -</div>
+    <p style="font-weight:bold; border-top:2px solid #3d2b1f; margin-top:10px; padding-top: 10px;">MARINE HEADQUARTERS</p>
+    <p style="font-size: 0.6rem; opacity: 0.6;">(Click to stop music & dismiss)</p>
+  </div>
+
+  <div class="ocean"><div class="wave"></div><div class="wave"></div></div>
+  <div class="footer"><span id="animated-text"></span></div>
+
+  <audio id="bgm" loop><source src="{{ url_for('static', filename='Theme.mp3') }}" type="audio/mpeg"></audio>
+  <audio id="sfx-luffy"><source src="{{ url_for('static', filename='luffy\'s song.mp3') }}" type="audio/mpeg"></audio>
+  <audio id="sfx-don"><source src="{{ url_for('static', filename='don.mp3') }}" type="audio/mpeg"></audio>
+
+  <script>
+    const canvas = document.getElementById("canvas"), ctx = canvas.getContext("2d");
+    const poster = document.getElementById("wanted-poster"), predictionDisplay = document.getElementById("prediction-text");
+    const bgm = document.getElementById("bgm"), sfxLuffy = document.getElementById("sfx-luffy"), sfxDon = document.getElementById("sfx-don");
+    let drawing = false;
+
+   
+    bgm.volume = 0.05;   
+    sfxLuffy.volume = 0.8; 
+    sfxDon.volume = 0.6;
+
+    const init = () => { ctx.fillStyle = "#d6c4a6"; ctx.fillRect(0,0,280,280); };
+    init();
+
+    function toggleMusic() {
+      if (bgm.paused) {
+        bgm.play().catch(e => {});
+        document.getElementById("mute-btn").innerText = "🔊";
+      } else {
+        bgm.pause();
+        document.getElementById("mute-btn").innerText = "🔈";
+      }
+    }
+
+    
+    function closePoster() {
+      poster.classList.remove('active');
+      sfxLuffy.pause();
+      sfxLuffy.currentTime = 0; 
+    }
+
+    function spawnFire(x, y) {
+      const p = document.createElement("div"); p.className = "fire-particle";
+      p.style.left = x + "px"; p.style.top = y + "px";
+      document.body.appendChild(p);
+      p.animate([{opacity:1},{transform:'translateY(-40px) scale(0)', opacity:0}], 600).onfinish=()=>p.remove();
+    }
+
+    const getCoords = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: cx - rect.left, y: cy - rect.top, gx: cx, gy: cy };
+    };
+
+    canvas.onmousedown = (e) => { drawing = true; ctx.beginPath(); };
+    window.onmouseup = () => { drawing = false; ctx.beginPath(); };
+    canvas.onmousemove = (e) => {
+      if(!drawing) return;
+      const c = getCoords(e);
+      ctx.lineWidth = 14; ctx.lineCap = "round"; ctx.strokeStyle = "black";
+      ctx.lineTo(c.x, c.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(c.x, c.y);
+      spawnFire(c.gx, c.gy);
+    };
+
+    function clearCanvas() { init(); closePoster(); }
+
+    function predict() {
+      sfxLuffy.currentTime = 0;
+      sfxLuffy.play().catch(e => {});
+
+      const tmpCanvas = document.createElement("canvas");
+      tmpCanvas.width = 28; tmpCanvas.height = 28;
+      const tmpCtx = tmpCanvas.getContext("2d");
+      tmpCtx.drawImage(canvas, 0, 0, 28, 28);
+
+      const imgData = tmpCtx.getImageData(0,0,28,28), pixels = [];
+      for(let i=0; i<imgData.data.length; i+=4) {
+        const avg = (imgData.data[i]+imgData.data[i+1]+imgData.data[i+2])/3;
+        pixels.push(avg < 120 ? 255 : 0);
+      }
+
+      fetch("/predict", { 
+        method: "POST", headers: {"Content-Type": "application/json"}, 
+        body: JSON.stringify({pixels}) 
+      })
+      .then(res => res.json())
+      .then(data => {
+        predictionDisplay.innerText = data.prediction;
+        sfxDon.currentTime = 0;
+        sfxDon.play().catch(e => {});
+        poster.classList.add("active");
+      })
+      .catch(() => alert("Cipher Pol blocked the signal!"));
+    }
+
+    const nameText = "System by Rafsan Kabir | Fire Fist Edition 🏴‍☠️";
+    let idx = 0;
+    const type = () => { if(idx < nameText.length) { document.getElementById("animated-text").innerHTML += nameText.charAt(idx++); setTimeout(type, 100); } };
+    type();
+  </script>
+</body>
+</html>
