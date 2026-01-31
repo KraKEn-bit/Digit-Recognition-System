@@ -4,7 +4,9 @@ An **interactive web-based handwritten digit recognizer** powered by a **PyTorch
 Draw digits (0–9) on a canvas and get **instant predictions in real time**.
 
 This project is an **upgrade from an earlier MLP + NumPy manual inference version**, created mainly for learning.  
-👉 **The main and final project is the CNN-based version.**
+<br>
+<br>
+## **The main and final project is the CNN-based version.**
 
 ---
 
