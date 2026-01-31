@@ -53,4 +53,5 @@ A **GIF demo** is included in the repository showing:
 - Real-time prediction output  
 
 ```markdown
-![Demo](assets/demo.gif)
+![Demo](https://github.com/KraKEn-bit/Digit-Recognition-System/blob/main/CNN%20Version/OnepieceDigitrecog-ezgif.com-speed.gif))
+```
