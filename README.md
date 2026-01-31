@@ -52,6 +52,6 @@ A **GIF demo** is included in the repository showing:
 - Drawing a digit  
 - Real-time prediction output  
 
-```markdown
+
 ![Demo](https://github.com/KraKEn-bit/Digit-Recognition-System/blob/main/CNN%20Version/OnepieceDigitrecog-ezgif.com-speed.gif))
-```
+
