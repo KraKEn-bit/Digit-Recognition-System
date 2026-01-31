@@ -78,3 +78,8 @@ python app.py
 ```
 http://127.0.0.1:5000
 ```
+
+
+
+
+![Poneglyph Demo](https://github.com/KraKEn-bit/Digit-Recognition-System/blob/main/CNN%20Version/OnepieceDigitrecog-ezgif.com-speed.gif)
