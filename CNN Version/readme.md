@@ -62,8 +62,8 @@ This project blends **deep learning** with a **highly stylized anime-inspired UI
 
 ###  Clone the Repository
 ```bash
-git clone [https://github.com/your-username/poneglyph-recognizer.git](https://github.com/KraKEn-bit/Digit-Recognition-System/tree/main/CNN%20Version)
-cd poneglyph-recognizer
+git clone https://github.com/KraKEn-bit/Digit-Recognition-System/tree/main/CNN%20Version
+cd Digit-Recognition-System
 ```
 
 
