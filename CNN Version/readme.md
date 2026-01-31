@@ -68,20 +68,6 @@ cd poneglyph-recognizer
 
 
 
-## **Folder Structure:**
-project/<br>
-├── app.py<br>
-├── mnist_cnn.pth<br>
-├── templates/<br>
-│   └── index.html<br>
-└── static/<br>
-    ├── ACE.png<br>
-    ├── Theme.mp3<br>
-    ├── luffy's song.mp3<br>
-    └── don.mp3<br>
-
-
-
 ##**How to run?**
 ```bash:
 python app.py
